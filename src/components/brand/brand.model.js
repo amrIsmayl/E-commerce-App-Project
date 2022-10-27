@@ -10,6 +10,6 @@ const schema = Schema({
         minlength: [2, 'too short brand name'],
     },
     image: String
-},{timestamps:true})
+}, { timestamps: true })
 
-module.exports.model('brand', schema)
+module.exports = model('brand', schema)

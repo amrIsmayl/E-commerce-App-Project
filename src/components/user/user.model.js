@@ -36,4 +36,4 @@ const schema = Schema({
     },
 }, { timestamps: true })
 
-module.exports.model('user', schema)
+module.exports = model('user', schema)

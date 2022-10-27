@@ -14,6 +14,6 @@ const schema = Schema({
         lowercase: true
     },
     image: String
-},{timestamps:true})
+}, { timestamps: true })
 
-module.exports.model('category', schema)
+module.exports = model('category', schema)

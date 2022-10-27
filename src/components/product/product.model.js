@@ -64,6 +64,6 @@ const schema = Schema({
         type: Number,
         default: 0,
     },
-},{timestamps:true});
+}, { timestamps: true });
 
-module.exports.model('Product', schema)
+module.exports = model('Product', schema)
