@@ -9,7 +9,7 @@ const schema = Schema({
         unique: [true, 'subcategory name unique'],
         minlength: [2, 'too short subcategory name'],
     },
-    sulg: {
+    slug: {
         type: String,
         lowercase: true
     },

@@ -13,10 +13,9 @@ app.use(express.json())
 
 if (process.env.MODE_ENV === 'development') {
     app.use(morgan('dev')) // keda bytm useing el module
-
 };
 
-app.use('categories', require('./src/components/category/category.api'))
+app.use('/categories', require('./src/components/category/category.api'))
 
 
 dbConnection();

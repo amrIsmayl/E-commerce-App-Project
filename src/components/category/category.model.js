@@ -9,7 +9,8 @@ const schema = Schema({
         unique: [true, 'category name unique'],
         minlength: [2, 'too short category name'],
     },
-    sulg: {
+    slug: {  // bnst5dm el slug fe ezhar name lel montag m3a el URL
+        // and ben kol name and name lel category bdal el spas 
         type: String,
         lowercase: true
     },
