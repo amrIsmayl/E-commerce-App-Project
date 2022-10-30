@@ -5,6 +5,8 @@ require('dotenv').config({ path: './config/.env' }) // 3mlna path fe masar el fi
 const port = process.env.PORT || 4000 // badeel lel port 3000
 
 var morgan = require('morgan') // module morgan bnstfed menh fe el data bta3t el request 
+const AppError = require('./src/utilts/AppError')
+const globalMiddlewareErr = require('./src/utilts/globalMiddlewareErr')
 // bygeb kol el informaton el 5asa bel request men el type and size and time 
 
 // middleware
@@ -19,15 +21,15 @@ app.use('/categories', require('./src/components/category/category.api'))
 
 
 // global error handling in URL
-app.use('*',(req,res) => {
-    res.json({message:`can't find this route: ${req.originalUrl} on server`})
+app.use('*', (req, res, next) => {
+    next(
+        new AppError(`can't find this route: ${req.originalUrl} on server`, 404)
+    )
     // the "req.originalUrl" is path from URL "ell btektbh lo false hatkon de el natega"
 })
 
 // global error handling middleware
-app.use((err,req,res,next) => {
-  res.status(400).json(err)
-})
+app.use(globalMiddlewareErr)
 
 dbConnection();
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

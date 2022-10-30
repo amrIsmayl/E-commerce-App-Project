@@ -1,15 +1,10 @@
 const CategoryModel = require('./category.model');
-const slugify = require('slugify')
+const slugify = require('slugify');
+const AppError = require('../../utilts/AppError');
+const { catchAsyncError } = require('../../utilts/catchAsync');
 
 
-// handle errors
-function catchAsyncError(fn) { // el FN it is function to service in category
-    return (req, res, next) => {  // to return one condition and pass req, res, next
-        fn(req, res).catch((err) => { // it is question if err in req and res then catch thats error
-            next(err); // show error as response
-        })
-    }
-}
+
 
 
 // create new category
@@ -32,11 +27,13 @@ exports.getCategories = catchAsyncError(async (req, res) => {
 
 
 // get specific category
-exports.getCategory = catchAsyncError(async (req, res) => {
+exports.getCategory = catchAsyncError(async (req, res, next) => {
     const { id } = req.params;
     let category = await CategoryModel.findById(id);
     if (!category) {
-        return res.status(404).json({ message: 'Category not found' });
+        return next(
+            new AppError("category not found", 400)
+        );
         // el return wazeftha stop el code lao el condetion success
         // badal ma n3mel else
     }
@@ -46,7 +43,7 @@ exports.getCategory = catchAsyncError(async (req, res) => {
 
 
 // to update specific category
-exports.updateCategory = catchAsyncError(async (req, res) => {
+exports.updateCategory = catchAsyncError(async (req, res,next) => {
     const { id } = req.params;
     const { name } = req.body;
     let category = await CategoryModel.findByIdAndUpdate(id, {
@@ -54,7 +51,9 @@ exports.updateCategory = catchAsyncError(async (req, res) => {
         slug: slugify(name)
     }, { new: true }); // el new 3shan ===> show data befor update category because by default they show data after update
     if (!category) {
-        return res.status(404).json({ message: 'Category not found' });
+        return next(
+            new AppError("category not found", 400)
+        );
         // el return wazeftha stop el code lao el condetion success
         // badal ma n3mel else
     }
@@ -64,12 +63,14 @@ exports.updateCategory = catchAsyncError(async (req, res) => {
 
 
 // to delete specific category
-exports.deleteCategory = catchAsyncError(async (req, res) => {
+exports.deleteCategory = catchAsyncError(async (req, res,next) => {
     const { id } = req.params;
     const { name } = req.body;
     let category = await CategoryModel.findByIdAndDelete(id); // el new 3shan ===> show data befor update category because by default they show data after update
     if (!category) {
-        return res.status(404).json({ message: 'Category not found' });
+        return next(
+            new AppError("category not found", 400)
+        );
         // el return wazeftha stop el code lao el condetion success
         // badal ma n3mel else
     }
