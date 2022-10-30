@@ -1,3 +1,9 @@
+// this is error to any sentax code like "require or extends"
+// this step lazem tkon first in app file
+process.on('unCaughtExcrption', (err) => {
+    console.log('unCaughtExcrption', err);
+})
+
 const express = require('express')
 const { dbConnection } = require('./src/database/dbConnection')
 const app = express()
@@ -33,3 +39,11 @@ app.use(globalMiddlewareErr)
 
 dbConnection();
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+
+
+// global error handling in programming Error
+// this is error to any sentax code like "mongodb number out of range"
+// this step lazem tkon end in app file
+process.on('unHandeldRejction', (err) => {
+    console.log('unHandeldRejction'.err);
+})
