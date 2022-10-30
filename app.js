@@ -18,5 +18,16 @@ if (process.env.MODE_ENV === 'development') {
 app.use('/categories', require('./src/components/category/category.api'))
 
 
+// global error handling in URL
+app.use('*',(req,res) => {
+    res.json({message:`can't find this route: ${req.originalUrl} on server`})
+    // the "req.originalUrl" is path from URL "ell btektbh lo false hatkon de el natega"
+})
+
+// global error handling middleware
+app.use((err,req,res,next) => {
+  res.status(400).json(err)
+})
+
 dbConnection();
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
