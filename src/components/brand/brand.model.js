@@ -9,6 +9,10 @@ const schema = Schema({
         unique: [true, 'brand name unique'],
         minlength: [2, 'too short brand name'],
     },
+    slug: {
+        type: String,
+        lowercase: true
+    },
     image: String
 }, { timestamps: true })
 

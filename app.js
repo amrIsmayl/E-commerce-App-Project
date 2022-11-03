@@ -26,6 +26,7 @@ if (process.env.MODE_ENV === 'development') {
 app.use('/categories', require('./src/components/category/category.api'));
 app.use('/subcategories', require('./src/components/subCategory/subCategory.api'));
 app.use('/brands', require('./src/components/brand/brand.api'));
+app.use('/product', require('./src/components/product/product.api'));
 
 
 // global error handling in URL
