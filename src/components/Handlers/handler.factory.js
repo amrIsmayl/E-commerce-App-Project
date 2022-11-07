@@ -44,17 +44,31 @@ exports.getAll = (model) => {
         queryString = JSON.parse(queryString) // parse: change string ==>> json code
 
         let mongooseQuery = model.find(queryString).skip(skip).limit(limit); // Building to query
+
         // ----------------------------------------------------------------
         // sort: tarteeb any data from small to large and back 
-        if(req.query.sort){ // if sort in URL
-            let sortedBy = req.query.sort.split(',').join(" "); 
+        if (req.query.sort) { // if sort in URL
+            let sortedBy = req.query.sort.split(',').join(" ");
             // split = delete any comaa "," in array
             // join = replace space between elements in array
-            mongooseQuery.sort(sortedBy); //
+            mongooseQuery.sort(sortedBy);
         }
 
-        let document = await mongooseQuery ; // execute to query
-            res.status(200).json({ result: document });
+        // ----------------------------------------------------------------
+        // search:
+        if (req.query.keyword) { // if keyword = any word to search in URL
+            let keyword = req.query.keyword; // add this word in var
+            mongooseQuery.find({ // unfa3 2 find fee function oa7da
+                $or: [ // $or is Search feature for more than one item in mongoose
+                    { name: { $regex: keyword, $options: "i" } }, // first feature is name
+                    { description: { $regex: keyword, $options: "i" } }, // second feature is description
+                    // $options: "i" : No difference between uppercase or lowercase letters
+                ]
+            });
+        }
+
+        let document = await mongooseQuery; // execute "tnfeez" to query 
+        res.status(200).json({ result: document });
     });
 }
 
