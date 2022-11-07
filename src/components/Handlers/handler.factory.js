@@ -31,7 +31,7 @@ exports.getAll = (model) => {
         // filters:
         let queryString = { ...req.query }; // spread operator
         // a5d copy to req.query 3shan a3del 3leha 3n treq "spread operator"
-        let excludedQuery = ['page','sort','keyword','fields'];
+        let excludedQuery = ['page', 'sort', 'keyword', 'fields'];
         // 3mlna el 5atoa de 3shan delete all elements in URL ana mesh ha7tagh fee el 5atow de
         excludedQuery.forEach((elm) => { // the different between map and forEach : map is returned , forEach disn't returned any data
             delete queryString[elm]; // delelet any data i don't needed to this opration
@@ -43,8 +43,18 @@ exports.getAll = (model) => {
         // gte = akbar men and equal   ,    gt =  akbar men ,    lte = aqal men and equal ,    lt = aqal men
         queryString = JSON.parse(queryString) // parse: change string ==>> json code
 
-        let document = await model.find(queryString).skip(skip).limit(limit);
-        res.status(200).json({ result: document });
+        let mongooseQuery = model.find(queryString).skip(skip).limit(limit); // Building to query
+        // ----------------------------------------------------------------
+        // sort: tarteeb any data from small to large and back 
+        if(req.query.sort){ // if sort in URL
+            let sortedBy = req.query.sort.split(',').join(" "); 
+            // split = delete any comaa "," in array
+            // join = replace space between elements in array
+            mongooseQuery.sort(sortedBy); //
+        }
+
+        let document = await mongooseQuery ; // execute to query
+            res.status(200).json({ result: document });
     });
 }
 
