@@ -1,5 +1,6 @@
 const { json } = require('express');
 const slugify = require('slugify');
+const ApiFeatures = require('../../utilts/ApiFeatures');
 const AppError = require('../../utilts/AppError');
 const { catchAsyncError } = require('../../utilts/catchAsync');
 
@@ -18,56 +19,13 @@ exports.createOne = (model) => {
 // get all
 exports.getAll = (model) => {
     return catchAsyncError(async (req, res) => {
-        // pagination:
-        let page = req.query.page * 1 || 1;
-        // req.query.page = query param 
-        // "ahmed" * 1 = NAN .... NaN || 1 => 1
-        // 0 * 1 = 0 .... 0 || 1 => 1
-        if (page < 0) page = 1;
-        let limit = 5
-        let skip = (page - 1) * limit
-        // qa3eda thabta be7eth > .skip(0).limit(5) > .skip(5).limit(5) >.skip(10).limit(5)
-        //-------------------------------------------------------------------------
-        // filters:
-        let queryString = { ...req.query }; // spread operator
-        // a5d copy to req.query 3shan a3del 3leha 3n treq "spread operator"
-        let excludedQuery = ['page', 'sort', 'keyword', 'fields'];
-        // 3mlna el 5atoa de 3shan delete all elements in URL ana mesh ha7tagh fee el 5atow de
-        excludedQuery.forEach((elm) => { // the different between map and forEach : map is returned , forEach disn't returned any data
-            delete queryString[elm]; // delelet any data i don't needed to this opration
-        })
-
-        queryString = JSON.stringify(queryString) // stringify: change json code ==>> string 
-        queryString = queryString.replace(/\b(gte|gt|lte|lt)\b/g, match => `$${match}`); // this step because edafet $ to condition search
-        // match: change any data in first prametar in replace to what you do between pikk tek ``
-        // gte = akbar men and equal   ,    gt =  akbar men ,    lte = aqal men and equal ,    lt = aqal men
-        queryString = JSON.parse(queryString) // parse: change string ==>> json code
-
-        let mongooseQuery = model.find(queryString).skip(skip).limit(limit); // Building to query
-
-        // ----------------------------------------------------------------
-        // sort: tarteeb any data from small to large and back 
-        if (req.query.sort) { // if sort in URL
-            let sortedBy = req.query.sort.split(',').join(" ");
-            // split = delete any comaa "," in array
-            // join = replace space between elements in array
-            mongooseQuery.sort(sortedBy);
-        }
-
-        // ----------------------------------------------------------------
-        // search:
-        if (req.query.keyword) { // if keyword = any word to search in URL
-            let keyword = req.query.keyword; // add this word in var
-            mongooseQuery.find({ // unfa3 2 find fee function oa7da
-                $or: [ // $or is Search feature for more than one item in mongoose
-                    { name: { $regex: keyword, $options: "i" } }, // first feature is name
-                    { description: { $regex: keyword, $options: "i" } }, // second feature is description
-                    // $options: "i" : No difference between uppercase or lowercase letters
-                ]
-            });
-        }
-
-        let document = await mongooseQuery; // execute "tnfeez" to query 
+        let apiFeatures = new ApiFeatures(model.find(), req.query)
+        .pagination()
+        .filter()
+        .sort()
+        .search()
+        .fields();
+        let document = await apiFeatures.mongooseQuery; // execute "tnfeez" to query 
         res.status(200).json({ result: document });
     });
 }
