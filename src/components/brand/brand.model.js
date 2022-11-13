@@ -16,4 +16,8 @@ const schema = Schema({
     image: String
 }, { timestamps: true })
 
+schema.post('init', (doc) => {
+    doc.image = "http://localhost:3000/categories/" + doc.image
+})
+
 module.exports = model('brand', schema)

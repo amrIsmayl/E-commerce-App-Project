@@ -17,7 +17,8 @@ const globalMiddlewareErr = require('./src/utilts/globalMiddlewareErr')
 
 // middleware
 
-app.use(express.json())
+app.use(express.json());
+app.use(express.static('uploads'))
 
 if (process.env.MODE_ENV === 'development') {
     app.use(morgan('dev')) // keda bytm useing el module

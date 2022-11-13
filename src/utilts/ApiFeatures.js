@@ -15,6 +15,7 @@ class ApiFeatures {
         let skip = (page - 1) * limit
         // qa3eda thabta be7eth > .skip(0).limit(5) > .skip(5).limit(5) >.skip(10).limit(5)
         this.mongooseQuery.skip(skip).limit(limit);
+        this.page = page
         return this;
     }
 
