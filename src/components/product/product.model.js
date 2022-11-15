@@ -39,7 +39,7 @@ const schema = Schema({
         default: 0
     },
     imageCover: String,
-    image: [String],
+    images: [String],
     category: {
         type: Types.ObjectId,
         ref: 'category',
@@ -65,5 +65,13 @@ const schema = Schema({
         default: 0,
     },
 }, { timestamps: true });
+schema.post('init', (doc) => {
+    let imgs = []
+    doc.imageCover = "http://localhost:3000/product/" + doc.imageCover
+    doc.images.forEach((elm) => {
+        imgs.push("http://localhost:3000/product/" + elm)
+    });
+    doc.images = imgs
+})
 
 module.exports = model('Product', schema)

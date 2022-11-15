@@ -9,6 +9,12 @@ exports.createOne = (model) => {
     return catchAsyncError(async (req, res) => {
         req.body.slug = slugify(req.body.name) // slugify() : is Transformation name form to slugify form, like : amr-mohamed-abd-el-monim
         req.body.image = req.file?.filename; // the mark "?" ==>> if filename exists or not exists do it this
+        let imgs = []
+        req.body.imageCover = req.files.imageCover[0].filename
+        req.files.images.forEach((elm) => {
+            imgs.push(elm.filename)
+        })
+        req.body.images = imgs
         let document = new model(req.body);
         await document.save();
         res.status(200).json({ result: document });
@@ -25,7 +31,7 @@ exports.getAll = (model) => {
             .sort()
             .search()
             .fields();
-        let document = await apiFeatures.mongooseQuery; // execute "tnfeez" to query 
+        let document = await apiFeatures.mongooseQuery; // execute "tnfeez" to query
         res.status(200).json({ page: apiFeatures.page, result: document });
     });
 }
@@ -50,6 +56,16 @@ exports.updateSpacificOne = (model) => {
         const { id } = req.params;
         if (req.body.name) {
             req.body.slug = slugify(req.body.name) // slugify() : is Transformation name form to slugify form, like : amr-mohamed-abd-el-monim
+        }
+        if (req.files.imageCover) {
+            req.body.imageCover = req.files.imageCover[0].filename
+        }
+        if (req.files.images) {
+            let imgs = []
+            req.files.images.forEach((elm) => {
+                imgs.push(elm.filename)
+            })
+            req.body.images = imgs
         }
         req.body.image = req.file?.filename; // the mark "?" ==>> if filename exists or not exists do it this
         let document = await model.findByIdAndUpdate(id, req.body
