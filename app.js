@@ -28,6 +28,8 @@ app.use('/categories', require('./src/components/category/category.api'));
 app.use('/subcategories', require('./src/components/subCategory/subCategory.api'));
 app.use('/brands', require('./src/components/brand/brand.api'));
 app.use('/product', require('./src/components/product/product.api'));
+app.use('/user', require('./src/components/user/user.api'));
+
 
 
 // global error handling in URL

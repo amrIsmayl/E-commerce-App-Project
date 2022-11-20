@@ -20,7 +20,7 @@ const schema = Schema({
     },
     password: {
         type: String,
-        required: [true, 'phone password'],
+        required: [true, 'password required'],
         minlength: [6, 'minlength 6 characters'],
     },
     profileImage: {
@@ -36,4 +36,4 @@ const schema = Schema({
     },
 }, { timestamps: true })
 
-module.exports = model('user', schema)
+module.exports = model('user', schema) 
