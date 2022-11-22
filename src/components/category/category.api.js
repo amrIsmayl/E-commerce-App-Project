@@ -9,7 +9,12 @@ const router = require('express').Router();
 
 router.use('/:categoryId/subcategories', subcategoryRoute)
 
-router.route('/').post(protectedRoutes,allowedTo("admin"), uploadSingleFile('image', 'category'), createCategory).get(getCategories);
-router.route('/:id').get(getCategory).put(uploadSingleFile('image', 'category'), updateCategory).delete(deleteCategory)
+router.route('/')
+    .post(protectedRoutes, allowedTo("admin"), uploadSingleFile('image', 'category'), createCategory)
+    .get(getCategories);
+router.route('/:id')
+    .get(getCategory)
+    .put(protectedRoutes, allowedTo("admin"), uploadSingleFile('image', 'category'), updateCategory)
+    .delete(protectedRoutes, allowedTo("admin"), deleteCategory)
 
 module.exports = router;

@@ -10,8 +10,8 @@ router.route('/:id')
     .get(getUser)
     .put(updateUser)
     .delete(deleteUser);
-router.patch('/changePassword/:id',changePassword);
-router.post('/signup',signUp);
-router.post('/signin',signIn)
+router.patch('/changePassword/:id', changePassword);
+router.post('/signup', signUp);
+router.post('/signin', signIn)
 
 module.exports = router;

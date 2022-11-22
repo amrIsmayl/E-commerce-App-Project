@@ -1,10 +1,15 @@
 const { createSubCategory, getSubCategories, getSubCategory, updateSubCategory, deleteSubCategory } = require('./subCategory.service');
 
-const router = require('express').Router({mergeParams:true});
+const router = require('express').Router({ mergeParams: true });
 
 
 
-router.route('/').post(createSubCategory).get(getSubCategories);
-router.route('/:id').get(getSubCategory).put(updateSubCategory).delete(deleteSubCategory);
+router.route('/')
+    .post(protectedRoutes, allowedTo("admin"), createSubCategory)
+    .get(getSubCategories);
+router.route('/:id')
+    .get(getSubCategory)
+    .put(protectedRoutes, allowedTo("admin"), updateSubCategory)
+    .delete(protectedRoutes, allowedTo("admin"), deleteSubCategory);
 
 module.exports = router; 
