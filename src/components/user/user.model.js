@@ -24,13 +24,14 @@ const schema = Schema({
         required: [true, 'password required'],
         minlength: [6, 'minlength 6 characters'],
     },
+    passwordChangeAt: Date,
     profileImage: {
         type: String,
     },
     role: {
         type: String,
         enum: ['admin', 'user'], // enum to Just choose between the two options 
-        default:'user'
+        default: 'user'
     },
     isActive: {
         type: Boolean,
@@ -40,11 +41,11 @@ const schema = Schema({
 
 schema.pre("save", async function () { // el save Only work with "crate" and "save" in database function in file user.service.js 
     // the "pre" is : edit data before save data in database // 3aks el post
-this.password = await bcrypt.hash(this.password,Number(process.env.ROUND))
+    this.password = await bcrypt.hash(this.password, Number(process.env.ROUND))
 })
 
 schema.pre("findOneAndUpdate", async function () { // the "findOneAndUpdate" Only work with "findByIdAndUpdate" in database function in file user.service.js
-this._update.password = await bcrypt.hash(this._update.password,Number(process.env.ROUND))
+    this._update.password = await bcrypt.hash(this._update.password, Number(process.env.ROUND))
 })
 
 module.exports = model('user', schema) 
