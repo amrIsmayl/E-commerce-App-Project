@@ -51,16 +51,6 @@ exports.updateSpacificOne = (model) => {
         if (req.body.name) {
             req.body.slug = slugify(req.body.name) // slugify() : is Transformation name form to slugify form, like : amr-mohamed-abd-el-monim
         }
-        if (req.files.imageCover) {
-            req.body.imageCover = req.files.imageCover[0].filename
-        }
-        if (req.files.images) {
-            let imgs = []
-            req.files.images.forEach((elm) => {
-                imgs.push(elm.filename)
-            })
-            req.body.images = imgs
-        }
         req.body.image = req.file?.filename; // the mark "?" ==>> if filename exists or not exists do it this
         let document = await model.findByIdAndUpdate(id, req.body
             , { new: true });

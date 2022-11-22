@@ -23,5 +23,19 @@ exports.getUser = factory.specificOne(userModel)
 // to update specific user
 exports.updateUser = factory.updateSpacificOne(userModel)
 
+// to change password specific user
+exports.changePassword = catchAsyncError(async (req, res, next) => {
+    const { id } = req.params;
+    if (req.body.name) {
+        req.body.slug = slugify(req.body.name) // slugify() : is Transformation name form to slugify form, like : amr-mohamed-abd-el-monim
+    }
+    req.body.image = req.file?.filename; // the mark "?" ==>> if filename exists or not exists do it this
+    let document = await userModel.findByIdAndUpdate(id, req.body
+        , { new: true });
+    // el new 3shan ===> show data befor update category because by default they show data after update
+    !document && new AppError("brand not found", 400)
+    document && res.status(200).json({ result: document });
+})
+
 // to delete specific user
 exports.deleteUser = factory.deleteOne(userModel)

@@ -1,5 +1,6 @@
 
 const { Schema, model, Types } = require('mongoose')
+const bcrypt = require('bcrypt');
 
 const schema = Schema({
     name: {
@@ -29,11 +30,21 @@ const schema = Schema({
     role: {
         type: String,
         enum: ['admin', 'user'], // enum to Just choose between the two options 
+        default:'user'
     },
     isActive: {
         type: Boolean,
         default: true
     },
 }, { timestamps: true })
+
+schema.pre("save", async function () { // el save Only work with "crate" and "save" in database function in file user.service.js 
+    // the "pre" is : edit data before save data in database // 3aks el post
+this.password = await bcrypt.hash(this.password,Number(process.env.ROUND))
+})
+
+schema.pre("findOneAndUpdate", async function () { // the "findOneAndUpdate" Only work with "findByIdAndUpdate" in database function in file user.service.js
+this._update.password = await bcrypt.hash(this._update.password,Number(process.env.ROUND))
+})
 
 module.exports = model('user', schema) 
