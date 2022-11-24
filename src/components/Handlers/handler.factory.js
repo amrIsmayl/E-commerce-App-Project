@@ -7,7 +7,9 @@ const { catchAsyncError } = require('../../utilts/catchAsync');
 // create new
 exports.createOne = (model) => {
     return catchAsyncError(async (req, res) => {
-        req.body.slug = slugify(req.body.name) // slugify() : is Transformation name form to slugify form, like : amr-mohamed-abd-el-monim
+        if (req.body.name) {
+            req.body.slug = slugify(req.body.name) // slugify() : is Transformation name form to slugify form, like : amr-mohamed-abd-el-monim
+        }
         req.body.image = req.file?.filename; // the mark "?" ==>> if filename exists or not exists do it this
         let document = new model(req.body);
         await document.save();

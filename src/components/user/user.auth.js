@@ -1,5 +1,4 @@
 const userModel = require('./user.model');
-const factory = require("../Handlers/handler.factory");
 const { catchAsyncError } = require('../../utilts/catchAsync');
 const AppError = require('../../utilts/AppError');
 const jwt = require('jsonwebtoken');

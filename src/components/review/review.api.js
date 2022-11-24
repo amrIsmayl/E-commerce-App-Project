@@ -7,12 +7,12 @@ const router = require('express').Router();
 
 
 router.route('/')
-    .post(protectedRoutes, allowedTo("user"), uploadSingleFile('image', 'brand'), createReview)
+    .post(protectedRoutes, allowedTo("user"), createReview)
     .get(getReviews);
 
 router.route('/:id')
     .get(getReview)
-    .put(protectedRoutes, allowedTo("user"), uploadSingleFile('image', 'brand'), updateReview)
-    .delete(protectedRoutes, allowedTo("admin", "user"), deleteReview);
+    .put(protectedRoutes, allowedTo("user"), updateReview)
+    .delete(protectedRoutes, allowedTo("admin","user"), deleteReview);
 
 module.exports = router;
