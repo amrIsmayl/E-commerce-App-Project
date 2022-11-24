@@ -1,4 +1,5 @@
 const { uploadMixOfFiles } = require('../../utilts/fileUpload');
+const { protectedRoutes, allowedTo } = require('../user/user.auth');
 const { createProduct, getProducts, getproduct, updateProduct, deleteProduct } = require('./product.service');
 
 const router = require('express').Router();

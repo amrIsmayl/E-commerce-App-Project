@@ -1,3 +1,4 @@
+const { allowedTo, protectedRoutes } = require('../user/user.auth');
 const { createSubCategory, getSubCategories, getSubCategory, updateSubCategory, deleteSubCategory } = require('./subCategory.service');
 
 const router = require('express').Router({ mergeParams: true });

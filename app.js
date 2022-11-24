@@ -29,6 +29,7 @@ app.use('/subcategories', require('./src/components/subCategory/subCategory.api'
 app.use('/brands', require('./src/components/brand/brand.api'));
 app.use('/product', require('./src/components/product/product.api'));
 app.use('/user', require('./src/components/user/user.api'));
+app.use('/review', require('./src/components/review/review.api'));
 
 
 

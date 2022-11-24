@@ -19,7 +19,7 @@ const schema = Schema({
     retingAverage: {
         type: Number,
         min: [1, 'ratingAverage must be greater than 1'],
-        min: [5, 'ratingAverage must be less than 5'],
+        max: [5, 'ratingAverage must be less than 5'],
     },
 }, { timestamps: true })
 

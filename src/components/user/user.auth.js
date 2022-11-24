@@ -45,17 +45,19 @@ exports.protectedRoutes = catchAsyncError(async (req, res, next) => {
     if (!user) return next(new AppError("User not found", 401))
     // 3- find by id user in token, because : if user is not found ==> if admin deleted user
 
-    let changePassword = parseInt(user.passwordChangeAt.getTime() / 1000);
-    // getTime() => to show time like decoded.iat
-    // "/1000" => to Transformation time by milliseconds => time by seconds like "decoded.iat"
-    // parseInt() => to remove numbers after seconds like (1234.432 => 1234)
-    // all of this steps because Comparison (changePassword with decoded.iat)
-    if (changePassword > decoded.iat)
-        return next(new AppError("password changed", 401));
-    // 4- Comparison time created token with user change Password, if user changed password
+    if (user.passwordChangeAt) {
+        let changePassword = parseInt(user.passwordChangeAt.getTime() / 1000);
+        // getTime() => to show time like decoded.iat
+        // "/1000" => to Transformation time by milliseconds => time by seconds like "decoded.iat"
+        // parseInt() => to remove numbers after seconds like (1234.432 => 1234)
+        // all of this steps because Comparison (changePassword with decoded.iat)
+        if (changePassword > decoded.iat)
+            return next(new AppError("password changed", 401));
+        // 4- Comparison time created token with user change Password, if user changed password
+
+    }
 
     req.user = user;
-
     next()
 })
 
