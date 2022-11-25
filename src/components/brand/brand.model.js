@@ -17,6 +17,7 @@ const schema = Schema({
 }, { timestamps: true })
 
 schema.post('init', (doc) => {
+    // the "pre" is : edit data before save data in database // 3aks el post
     doc.image = "http://localhost:3000/categories/" + doc.image
 })
 

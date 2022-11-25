@@ -64,8 +64,30 @@ const schema = Schema({
         type: Number,
         default: 0,
     },
-}, { timestamps: true });
+}, {
+    timestamps: true,
+
+    // thats 2 steps to show all reviews to product
+    // we give them from mongoose web site
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true }
+});
+
+schema.virtual('reviews', { // reviews : any name of my choice
+    ref: 'review', // review : the same name of schema review model
+    localField: '_id', // _id : is id from product
+    foreignField: 'product' // product : esm el 7aga el moshtaraka fe schema el d'eef 
+    // moshtaraka b7eeth t7'os ay product oa7ed hayt3rd 
+});
+
+schema.pre('findOne', function () {
+    // the "pre" is : edit data before save data in database // 3aks el post
+    this.populate('reviews', 'name');
+    // reviews : ???! // el mafrood da esm el schema ll review model, bas le 7at "s" fe a7'er el name
+})
+
 schema.post('init', (doc) => {
+    // the "pre" is : edit data before save data in database // 3aks el post
     let imgs = []
     doc.imageCover = "http://localhost:3000/product/" + doc.imageCover
     doc.images.forEach((elm) => {

@@ -21,6 +21,10 @@ const schema = Schema({
         min: [1, 'ratingAverage must be greater than 1'],
         max: [5, 'ratingAverage must be less than 5'],
     },
-}, { timestamps: true })
+}, { timestamps: true });
+
+schema.pre(/^find/, function () {
+    this.populate('user', 'name');
+})
 
 module.exports = model('review', schema)
