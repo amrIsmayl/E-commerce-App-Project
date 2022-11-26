@@ -2,7 +2,6 @@ const reviewModel = require('./reviews.model');
 const factory = require("../Handlers/handler.factory");
 const AppError = require('../../utilts/AppError');
 const { catchAsyncError } = require('../../utilts/catchAsync');
-const jwt = require('jsonwebtoken');
 
 
 // create new reviews

@@ -9,4 +9,5 @@ exports.allRequires = (app) => {
     app.use('/wishlist', require('../components/wishlist/wishlist.api'));
     app.use('/address', require('../components/address/address.api'));
     app.use('/coupon', require('../components/coupon/coupon.api'));
+    app.use('/cart', require('../components/cart/cart.api'));
 }
