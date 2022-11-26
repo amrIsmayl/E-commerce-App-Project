@@ -37,7 +37,13 @@ const schema = Schema({
         type: Boolean,
         default: true
     },
-    wishlist: [{ type: Types.ObjectId, ref: 'product' }] // "ref : "product" => because it show with product api
+    wishlist: [{ type: Types.ObjectId, ref: 'product' }], // "ref : "product" => because it show with product api
+    addresses: [{
+        name: String,
+        street: String,
+        city: String,
+        phone: Number,
+    }]
 }, { timestamps: true })
 
 schema.pre("save", async function () { // el save Only work with "crate" and "save" in database function in file user.service.js 

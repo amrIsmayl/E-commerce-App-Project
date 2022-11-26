@@ -31,6 +31,7 @@ app.use('/product', require('./src/components/product/product.api'));
 app.use('/user', require('./src/components/user/user.api'));
 app.use('/review', require('./src/components/review/review.api'));
 app.use('/wishlist', require('./src/components/wishlist/wishlist.api'));
+app.use('/address', require('./src/components/address/address.api'));
 
 
 
