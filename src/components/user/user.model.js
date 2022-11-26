@@ -37,6 +37,7 @@ const schema = Schema({
         type: Boolean,
         default: true
     },
+    wishlist: [{ type: Types.ObjectId, ref: 'product' }] // "ref : "product" => because it show with product api
 }, { timestamps: true })
 
 schema.pre("save", async function () { // el save Only work with "crate" and "save" in database function in file user.service.js 
@@ -45,7 +46,11 @@ schema.pre("save", async function () { // el save Only work with "crate" and "sa
 })
 
 schema.pre("findOneAndUpdate", async function () { // the "findOneAndUpdate" Only work with "findByIdAndUpdate" in database function in file user.service.js
-    this._update.password = await bcrypt.hash(this._update.password, Number(process.env.ROUND))
+    if (this._update.password) {
+        this._update.password = await bcrypt.hash(
+            this._update.password,
+            Number(process.env.ROUND))
+    }
 })
 
 module.exports = model('user', schema) 

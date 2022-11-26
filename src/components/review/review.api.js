@@ -1,11 +1,7 @@
-const { uploadSingleFile } = require('../../utilts/fileUpload');
 const { protectedRoutes, allowedTo } = require('../user/user.auth');
 const { createReview, getReviews, getReview, updateReview, deleteReview } = require('./review.service');
 
 const router = require('express').Router();
-
-
-
 router.route('/')
     .post(protectedRoutes, allowedTo("user"), createReview)
     .get(getReviews);

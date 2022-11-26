@@ -13,9 +13,7 @@ exports.createReview = catchAsyncError(async (req, res, next) => {
     // if found any review with product by same user not create new review
     // but if not found any review with product by same user create new review
 
-    let token = req.headers.token; // because given id from token
-    let decoded = jwt.verify(token, process.env.JWT_KEY);
-    req.body.user = decoded.userId
+    req.body.user = req.user._id
 
     let document = new reviewModel(req.body);
     await document.save();
@@ -30,16 +28,13 @@ exports.getReview = factory.specificOne(reviewModel)
 
 // to update specific review
 exports.updateReview = catchAsyncError(async (req, res, next) => {
-    let token = req.headers.token; // because given id from token
-    let decoded = jwt.verify(token, process.env.JWT_KEY);
-    req.body.user = decoded.userId
     const { id } = req.params;
     let isReview = await reviewModel.findById(id)
-    if (isReview.user._id.toString() == decoded.userId) {
+    if (isReview.user._id.toString() == req.user._id) {
         let document = await reviewModel.findByIdAndUpdate(id, req.body
             , { new: true });
         // el new 3shan ===> show data befor update category because by default they show data after update
-        !document && new AppError("brand not found", 400)
+        !document && new AppError("Review not found", 400)
         document && res.status(200).json({ document });
     } else {
         next(new AppError('you are not created a review before'), 400)
@@ -51,16 +46,12 @@ exports.updateReview = catchAsyncError(async (req, res, next) => {
 // to delete specific review
 exports.deleteReview = catchAsyncError(async (req, res, next) => {
     const { id } = req.params;
-    let token = req.headers.token; // because given id from token
-
     let isReview = await reviewModel.findById(id) // search by id review in reviewModel
 
-    let decoded = jwt.verify(token, process.env.JWT_KEY); // verify because given all data to user
-
-    if (isReview.user.toString() == decoded.userId) { // compare id to user in review by id in token
+    if (isReview.user._id.toString() == req.user._id) { // compare id to user in review by id in token
         let document = await reviewModel.findByIdAndDelete(id); // el new 3shan ===> show data befor update category because by default they show data after update
         !document && new AppError("review not found", 400)
-        document && res.status(200).json({ result: document });
+        document && res.status(200).json({ document });
     } else {
         next(new AppError('you are not created a review before'), 400)
     }
