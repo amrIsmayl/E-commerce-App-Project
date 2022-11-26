@@ -10,7 +10,7 @@ const schema = Schema(
             unique: [true, 'copon code unique'],
         },
         expires: {
-            type: Number,
+            type: Date,
         },
         discount: {
             type: Number,

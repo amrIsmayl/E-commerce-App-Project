@@ -38,7 +38,7 @@ exports.specificOne = (model) => {
     return catchAsyncError(async (req, res, next) => {
         const { id } = req.params;
         let document = await model.findById(id);
-        !document && new AppError("brand not found", 400)
+        !document && new AppError("document not found", 400)
         document && res.status(200).json({ result: document });
         // the idea to && :
         // if frist condition is true ? "do second condition" else don't doing anything
@@ -57,7 +57,7 @@ exports.updateSpacificOne = (model) => {
         let document = await model.findByIdAndUpdate(id, req.body
             , { new: true });
         // el new 3shan ===> show data befor update category because by default they show data after update
-        !document && new AppError("brand not found", 400)
+        !document && new AppError("document not found", 400)
         document && res.status(200).json({ result: document });
     })
 };

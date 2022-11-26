@@ -8,4 +8,5 @@ exports.allRequires = (app) => {
     app.use('/review', require('../components/review/review.api'));
     app.use('/wishlist', require('../components/wishlist/wishlist.api'));
     app.use('/address', require('../components/address/address.api'));
+    app.use('/coupon', require('../components/coupon/coupon.api'));
 }
