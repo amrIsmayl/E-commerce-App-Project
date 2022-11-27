@@ -2,7 +2,7 @@ const { protectedRoutes, allowedTo } = require('../user/user.auth');
 const { createCoupon, getCoupons, getCoupon, updateCoupon, deleteCoupon } = require('./coupon.service');
 
 const router = require('express').Router();
-router.use(protectedRoutes, allowedTo("admin"))
+router.use(protectedRoutes, allowedTo("user"))
 router.route('/')
     .post(createCoupon)
     .get(getCoupons);
