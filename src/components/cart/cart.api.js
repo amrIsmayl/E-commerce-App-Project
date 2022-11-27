@@ -7,6 +7,7 @@ router.route('/')
     .post(createCart)
     .delete(removePorductFromCart)
     .put(updateQuantity)
+    .get(applyCoupon)
 
 router.post("/applyCoupon", applyCoupon);
 module.exports = router;

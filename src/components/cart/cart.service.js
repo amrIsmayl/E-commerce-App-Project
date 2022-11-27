@@ -93,3 +93,11 @@ exports.applyCoupon = catchAsyncError(async (req, res, next) => {
     res.status(200).json(cart);
 
 })
+
+
+// get all carts
+exports.applyCoupon = catchAsyncError(async (req, res, next) => {
+    let cart = await cartModel.findOne({ user: req.user._id })
+    res.status(200).json({ result: cart.cartItems.length, cart: cart.cartItems });
+
+})
