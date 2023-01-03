@@ -6,6 +6,7 @@ process.on('unCaughtExcrption', (err) => {
 
 const express = require('express')
 const { dbConnection } = require('./src/database/dbConnection')
+var cors = require('cors')
 const app = express()
 require('dotenv').config({ path: './config/.env' }) // 3mlna path fe masar el file 3shan mesh gamb file el app
 const port = process.env.PORT || 4000 // badeel lel port 3000
@@ -20,6 +21,7 @@ const { allRequires } = require('./src/utilts');
 
 app.use(express.json());
 app.use(express.static('uploads'))
+app.use(cors())
 
 if (process.env.MODE_ENV === 'development') {
     app.use(morgan('dev')) // keda bytm useing el module

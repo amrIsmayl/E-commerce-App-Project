@@ -9,6 +9,19 @@ const schema = Schema({
         trim: true,
         minlength: [2, 'too short user name'],
     },
+    lastName: {
+        type: String,
+        required: [true, 'user last name required'],
+        trim: true,
+        minlength: [2, 'too short user last name'],
+    },
+    age: {
+        type: Number,
+        required: [true, 'user last name required'],
+        trim: true,
+        minlength: [16, 'too short user age'],
+        maxlength: [80, 'too longer user age'],
+    },
     email: {
         type: String,
         required: [true, 'email required'],
@@ -22,7 +35,7 @@ const schema = Schema({
     password: {
         type: String,
         required: [true, 'password required'],
-        minlength: [6, 'minlength 6 characters'],
+        minlength: [4, 'minlength 6 characters'],
     },
     passwordChangeAt: Date,
     profileImage: {

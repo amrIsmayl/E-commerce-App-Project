@@ -10,9 +10,9 @@ exports.createProduct = catchAsyncError(async (req, res) => {
     req.body.image = req.file?.filename; // the mark "?" ==>> if filename exists or not exists do it this
     let imgs = []
     req.body.imageCover = req.files.imageCover[0].filename
-    req.files.images.forEach((elm) => {
-        imgs.push(elm.filename)
-    })
+    // req.files.images.forEach((elm) => {
+    //     imgs.push(elm.filename)
+    // })
     req.body.images = imgs
     let document = new productModel(req.body);
     await document.save();

@@ -11,7 +11,7 @@ class ApiFeatures {
         // "ahmed" * 1 = NAN .... NaN || 1 => 1
         // 0 * 1 = 0 .... 0 || 1 => 1
         if (page < 0) page = 1;
-        let limit = 5
+        let limit = 50
         let skip = (page - 1) * limit
         // qa3eda thabta be7eth > .skip(0).limit(5) > .skip(5).limit(5) >.skip(10).limit(5)
         this.mongooseQuery.skip(skip).limit(limit);

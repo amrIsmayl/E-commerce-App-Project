@@ -8,7 +8,7 @@ let fields = [
     { name: 'images', maxCount: 3 }
 ]
 router.route('/')
-    .post(protectedRoutes, allowedTo("admin"), uploadMixOfFiles(fields, "product"), createProduct)
+    .post(protectedRoutes, allowedTo("user"), uploadMixOfFiles(fields, "product"), createProduct)
     .get(getProducts);
 router.route('/:id')
     .get(getproduct)

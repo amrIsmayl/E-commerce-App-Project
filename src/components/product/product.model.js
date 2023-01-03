@@ -90,12 +90,12 @@ schema.post('init', (doc) => {
     // the "pre" is : edit data before save data in database 
     // post : edit data after save data in database
     if (doc.imageCover && doc.images) {
-        let imgs = []
-        doc.imageCover = "http://localhost:3000/product/" + doc.imageCover
-        doc.images.forEach((elm) => {
-            imgs.push("http://localhost:3000/product/" + elm)
-        });
-        doc.images = imgs
+        // let imgs = []
+        doc.imageCover = "http://localhost:5000/product/" + doc.imageCover
+        // doc.images.forEach((elm) => {
+        //     imgs.push("http://localhost:5000/product/" + elm)
+        // });
+        // doc.images = imgs
     }
 })
 

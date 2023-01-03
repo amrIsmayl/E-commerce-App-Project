@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates&display=swap');
+
+
+:root {
+  --bg-main: #131722;
+  --light-bg: #24baef;
+  --main-color: #fff;
+  --border-color: #a8a8a83d;
+}
+
+body {
+  font-family: 'Montserrat Alternates', sans-serif !important;
+  background-color: var(--bg-main);
+  color: var(--main-color);
+}
+
+.height-img{
+  height: 400px;
+}
+
+.carts {
+  height: 150px;
+}
+
+.cart-position {
+  color: #909aa3;
+  top: 0px;
+  right: 35px;
+}
+
+.number-position {
+  color: #909aa3;
+  padding: 1px;
+  top: -4px;
+  right: 19px;
+}
+
+.dropdown{
+  background-color: transparent !important;
+  border: none !important;
+}
+
+.text-dropdown:hover{
+  color: var(--bg-main) !important;
+  font-weight: 600 !important;
+}
