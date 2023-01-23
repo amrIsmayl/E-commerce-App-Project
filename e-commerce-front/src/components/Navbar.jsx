@@ -1,11 +1,15 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Dropdown } from 'react-bootstrap';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import { counterContext } from './Context/Store';
 
 export default function Navbar(props) {
+    let { price, count, incrementProduct } = useContext(counterContext)
 
-
+    useEffect(() => {
+        incrementProduct()
+    })
     return (
         <>
             <nav className="navbar navbar-expand-lg navbar-dark bg-transparent">
@@ -27,25 +31,25 @@ export default function Navbar(props) {
                                 <Dropdown.Toggle id="dropdown-custom-1" className='dropdown nav-link'>category</Dropdown.Toggle>
                                 <Dropdown.Menu className=" bg-dark ">
                                     <Dropdown.Item eventKey="1" className="nav-link ">
-                                    <Link className="nav-link text-dropdown" aria-current="page" to="electronics">Electronics</Link>
+                                        <Link className="nav-link text-dropdown" aria-current="page" to="electronics">Electronics</Link>
                                     </Dropdown.Item>
                                     <Dropdown.Item eventKey="1" className="nav-link ">
-                                    <Link className="nav-link text-dropdown" aria-current="page" to="fashion">Fashion</Link>
+                                        <Link className="nav-link text-dropdown" aria-current="page" to="fashion">Fashion</Link>
                                     </Dropdown.Item>
                                     <Dropdown.Item eventKey="1" className="nav-link ">
-                                    <Link className="nav-link text-dropdown" aria-current="page" to="shoes">Shoes</Link>
+                                        <Link className="nav-link text-dropdown" aria-current="page" to="shoes">Shoes</Link>
                                     </Dropdown.Item>
                                     <Dropdown.Item eventKey="1" className="nav-link ">
-                                    <Link className="nav-link text-dropdown" aria-current="page" to="furniture">Furniture</Link>
+                                        <Link className="nav-link text-dropdown" aria-current="page" to="furniture">Furniture</Link>
                                     </Dropdown.Item>
                                     <Dropdown.Item eventKey="1" className="nav-link ">
-                                    <Link className="nav-link text-dropdown" aria-current="page" to="skincare">Skincare</Link>
+                                        <Link className="nav-link text-dropdown" aria-current="page" to="skincare">Skincare</Link>
                                     </Dropdown.Item>
                                     <Dropdown.Item eventKey="1" className="nav-link ">
-                                    <Link className="nav-link text-dropdown" aria-current="page" to="decoration">Home Decoration</Link>
+                                        <Link className="nav-link text-dropdown" aria-current="page" to="decoration">Home Decoration</Link>
                                     </Dropdown.Item>
                                     <Dropdown.Item eventKey="1" className="nav-link ">
-                                    <Link className="nav-link text-dropdown" aria-current="page" to="others">Others</Link>
+                                        <Link className="nav-link text-dropdown" aria-current="page" to="others">Others</Link>
                                     </Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>{' '}
@@ -56,14 +60,19 @@ export default function Navbar(props) {
                         <ul className="navbar-nav pe-5 mb-2 mb-lg-0">
 
                             <li className="nav-item pe-3">
-                                <Link className="nav-link " aria-current="page" to="cart"><i className="fa-solid fa-user"></i></Link>
+                                <Link className="nav-link " aria-current="page" to="cart">Account <i className="fa-solid fa-user"></i></Link>
                             </li>
 
+                            <li className="nav-item pe-3">
+
+                                <span className="nav-link ">$ {price}</span>
+
+                            </li>
 
                             <li className="nav-item pe-5 position-relative text-light">
                                 <Link className="nav-link " aria-current="page" to="cart">Cart</Link>
                                 <i className="fa-solid fa-cart-shopping position-absolute cart-position"></i>
-                                <span className='position-absolute number-position'>0</span>
+                                <span className='position-absolute number-position'>{count}</span>
                             </li>
 
                             {props.userData ?
@@ -82,7 +91,6 @@ export default function Navbar(props) {
                                 </>}  {/*but if not user data show this items */}
 
                         </ul>
-
 
                     </div>
                 </div>

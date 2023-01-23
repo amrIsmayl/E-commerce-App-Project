@@ -15,11 +15,20 @@ body {
 }
 
 .height-img{
-  height: 400px;
+  height: 330px;
+}
+
+.scale_img :hover{
+  transform: scale(1.05) ;
+  transition: .6s;
 }
 
 .carts {
-  height: 150px;
+  height: 135px;
+}
+
+.carts_foter{
+  height: 50px;
 }
 
 .cart-position {
