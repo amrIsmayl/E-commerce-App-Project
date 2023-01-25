@@ -60,7 +60,20 @@ export default function Navbar(props) {
                         <ul className="navbar-nav pe-5 mb-2 mb-lg-0">
 
                             <li className="nav-item pe-3">
-                                <Link className="nav-link " aria-current="page" to="cart">Account <i className="fa-solid fa-user"></i></Link>
+
+                                <Dropdown as={ButtonGroup}>
+                                    <Dropdown.Toggle id="dropdown-custom-1" className='dropdown nav-link'>Account <i className="fa-solid fa-user"></i></Dropdown.Toggle>
+                                    <Dropdown.Menu className=" bg-dark ">
+                                        <Dropdown.Item eventKey="1" className="nav-link ">
+                                            <Link className="nav-link text-dropdown" aria-current="page" to="pass">Change password</Link>
+                                        </Dropdown.Item>
+                                        <Dropdown.Item eventKey="1" className="nav-link ">
+                                            <Link className="nav-link text-dropdown" aria-current="page" to="address">Address</Link>
+                                        </Dropdown.Item>
+                                    </Dropdown.Menu>
+                                </Dropdown>{' '}
+                                <Dropdown as={ButtonGroup}></Dropdown>
+
                             </li>
 
                             <li className="nav-item pe-3">

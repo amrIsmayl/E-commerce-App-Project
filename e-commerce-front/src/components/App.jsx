@@ -13,6 +13,9 @@ import Furniture from './Furniture';
 import Skincare from './Skincare';
 import Decoration from './Decoration';
 import Others from './Others';
+import Address from './Address';
+import Pass from './Pass';
+
 
 import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import jwtDecode from 'jwt-decode'; // jwtDecode : to Transformation token to object Contain all data to user 
@@ -103,6 +106,8 @@ function App() {
             <Route path="skincare" element={<ProtectedRoute><Skincare /></ProtectedRoute>} />
             <Route path="decoration" element={<ProtectedRoute><Decoration /></ProtectedRoute>} />
             <Route path="others" element={<ProtectedRoute><Others /></ProtectedRoute>} />
+            <Route path="address" element={<ProtectedRoute><Address /></ProtectedRoute>} />
+            <Route path="pass" element={<ProtectedRoute><Pass /></ProtectedRoute>} />
             <Route path="register" element={<Register />} />
             <Route path="login" element={<Login saveUserData={saveUserData} />} />
             <Route path="*" element={<NotFound />} />

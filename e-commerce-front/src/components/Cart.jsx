@@ -14,7 +14,13 @@ export default function Cart(props) {
 
   useEffect(() => {
     carts();
-  },[price])
+  }, [price])
+
+  function removeProduct(data) {
+    let product = JSON.parse(localStorage.getItem("products"))
+    let cart = product.filter((elm) => elm.id !== data.id)
+    localStorage.setItem("products", JSON.stringify(cart))
+  }
 
 
   return (
@@ -50,6 +56,13 @@ export default function Cart(props) {
                       carts()
                     }}
                     className=' btn btn-danger px-3'>-</button>
+                  <button
+                    onClick={() => {
+                      removeProduct(data)
+                      incrementProduct()
+                      carts()
+                    }}
+                    className=' btn btn-danger px-3 ms-5'><i className="fa-sharp fa-solid fa-trash"></i></button>
 
                 </div>
 
