@@ -37,7 +37,6 @@ export default function Register(props) {
         }
         else {
             let data = await axios.post('http://localhost:5000/user/signup', user);
-            console.log(data);
             // in post method we need send 2 element "URL" and "new datq"
             if (data) {
                 setIsloading(false); // came again to loading opration by default false because data has been        

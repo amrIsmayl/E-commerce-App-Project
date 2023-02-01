@@ -5,7 +5,6 @@ import Login from './Login';
 import NotFound from './NotFound';
 import Navbar from './Navbar';
 import Cart from './Cart';
-import Products from './Products';
 import Electronics from './Electronics';
 import Fashion from './Fashion';
 import Shoes from './Shoes';
@@ -47,9 +46,9 @@ function App() {
     if (localStorage.getItem('userToken') === null) {
       return <Navigate to='/Login' />
     }
-    // else {
-    //   return props.children;
-    // }
+    else {
+      return props.children;
+    }
   };
 
   const addItem = (data) => {
@@ -95,7 +94,6 @@ function App() {
             <Route path="" element={<Home />} />
             <Route path="home" element={<Home addItem={addItem} />} />
             <Route path="cart" element={<Cart addItem={addItem} deleteItem={deleteItem} />} />
-            <Route path="products" element={<ProtectedRoute><Products /></ProtectedRoute>} />
             <Route path="electronics" element={<Electronics addItem={addItem} />} />
             <Route path="fashion" element={<Fashion addItem={addItem} />} />
             <Route path="shoes" element={<Shoes addItem={addItem} />} />

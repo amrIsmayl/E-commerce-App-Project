@@ -102,7 +102,7 @@ export default function Pass() {
                     <input onChange={password} type='password' className=' form-control mb-2' id='password' name='password' />
 
                     <label htmlFor="password" className=' my-2 '>New Password :</label>
-                    <input onChange={getPassData} type='password' className=' form-control mb-2' id='password' name='password' />
+                    <input onChange={getPassData} type='password' className=' form-control mb-2' id='NewPassword' name='password' />
 
                     <label className=' my-2 '>Repassword :</label>
                     <input onChange={repassword} type='password' className=' form-control mb-2' />

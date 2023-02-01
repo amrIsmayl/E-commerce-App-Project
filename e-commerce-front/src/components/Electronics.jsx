@@ -38,7 +38,7 @@ export default function Electronics(props) {
 
   return (
     <>
-      <div className=' row d-flex justify-content-center pt-5 mt-5'>
+      <div className=' row d-flex justify-content-center pt-5'>
 
         <div className=' col-md-5 pt-5'>
           <h2 className=' p-2 '>Electronics Department</h2>
