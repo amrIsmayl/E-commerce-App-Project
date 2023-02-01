@@ -18,7 +18,7 @@ export default function Furniture(props) {
     setAllFurniture(electronic)
   }
 
-  let { incrementProduct } = useContext(counterContext);
+  let { incrementProduct, incrementcount } = useContext(counterContext);
 
   useEffect(() => {
     getFurniture();
@@ -66,7 +66,12 @@ export default function Furniture(props) {
                   <p className="card-text">{data.description}</p>
                 </div>
                 <div className=" carts_foter d-flex justify-content-center align-items-center">
-                  <button className=' btn btn-secondary'>Add to cart</button>
+                  <button onClick={() => {
+                    props.addItem(data)
+                    incrementcount()
+                    incrementProduct()
+                  }}
+                    className=' btn btn-secondary'>Add to cart</button>
                 </div>
               </div>
             </div>
@@ -89,6 +94,7 @@ export default function Furniture(props) {
               <div className=" carts_foter d-flex justify-content-center align-items-center">
                 <button onClick={() => {
                   props.addItem(data)
+                  incrementcount()
                   incrementProduct()
                 }}
                   className=' btn btn-secondary'>Add to cart</button>

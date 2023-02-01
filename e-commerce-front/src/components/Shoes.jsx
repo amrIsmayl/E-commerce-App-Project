@@ -17,7 +17,7 @@ export default function Shoes(props) {
     setAllShoes(electronic)
   }
 
-  let { incrementProduct } = useContext(counterContext)
+  let { incrementProduct, incrementcount } = useContext(counterContext)
 
   useEffect(() => {
     getShoes();
@@ -65,7 +65,12 @@ export default function Shoes(props) {
                   <p className="card-text">{data.description}</p>
                 </div>
                 <div className=" carts_foter d-flex justify-content-center align-items-center">
-                  <button className=' btn btn-secondary'>Add to cart</button>
+                  <button onClick={() => {
+                    props.addItem(data)
+                    incrementcount()
+                    incrementProduct()
+                  }}
+                    className=' btn btn-secondary'>Add to cart</button>
                 </div>
               </div>
             </div>
@@ -89,6 +94,7 @@ export default function Shoes(props) {
               <div className=" carts_foter d-flex justify-content-center align-items-center">
                 <button onClick={() => {
                   props.addItem(data)
+                  incrementcount()
                   incrementProduct()
                 }}
                   className=' btn btn-secondary'>Add to cart</button>

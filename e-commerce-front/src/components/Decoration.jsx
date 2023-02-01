@@ -18,7 +18,7 @@ export default function Decor(props) {
     setAllDecor(electronic)
   }
 
-  let { incrementProduct } = useContext(counterContext);
+  let { incrementProduct, incrementcount } = useContext(counterContext);
 
   useEffect(() => {
     getDecor();
@@ -44,7 +44,6 @@ export default function Decor(props) {
         <div className=' col-md-5 pt-5'>
           <h2 className=' p-2 '>Decoration Department</h2>
           <p className=' p-4'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat deserunt reiciendis laudantium doloremque alias ipsum!</p>
-
         </div>
         <div className=' col-md-7 px-4 pt-5'>
           <h1 className=' pb-3 pt-3'>search by Producer</h1>
@@ -66,7 +65,12 @@ export default function Decor(props) {
                   <p className="card-text">{data.description}</p>
                 </div>
                 <div className=" carts_foter d-flex justify-content-center align-items-center">
-                  <button className=' btn btn-secondary'>Add to cart</button>
+                  <button onClick={() => {
+                    props.addItem(data)
+                    incrementcount()
+                    incrementProduct()
+                  }}
+                    className=' btn btn-secondary'>Add to cart</button>
                 </div>
               </div>
             </div>
@@ -89,6 +93,7 @@ export default function Decor(props) {
               <div className=" carts_foter d-flex justify-content-center align-items-center">
                 <button onClick={() => {
                   props.addItem(data)
+                  incrementcount()
                   incrementProduct()
                 }}
                   className=' btn btn-secondary'>Add to cart</button>
