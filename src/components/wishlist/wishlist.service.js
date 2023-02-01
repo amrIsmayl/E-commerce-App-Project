@@ -5,9 +5,8 @@ const { catchAsyncError } = require('../../utilts/catchAsync');
 
 // to add wishlist 
 exports.updateWishlist = catchAsyncError(async (req, res, next) => {
-    let { wishlist } = await userModel.findByIdAndUpdate(req.user._id, {
-        $addToSet: { wishlist: req.body.product } // "$addToSet" : if not found any wishlist then create new wishlist 
-    }, { new: true });
+    let { wishlist } = await userModel.findByIdAndUpdate(req.user._id, { wishlist: req.body }, { new: true });
+    // "$addToSet" : if not found any address then create new address 
     // el new 3shan ===> show data befor update category because by default they show data after update
     !wishlist && next(new AppError("wishlist not found", 400));
     wishlist && res.status(200).json({ wishlist });

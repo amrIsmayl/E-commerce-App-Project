@@ -7,6 +7,7 @@ export default function Address() {
     const [errorList, setErrorList] = useState([]); // to any error in user data in Account opration
     const [isloading, setIsloading] = useState(false); // to loading opration by default false
     const [added, setAdded] = useState(false); // to loading opration by default false
+    const [error, setError] = useState(""); // set error variable to fail registration
 
     const [address, setAddress] = useState({
         name: "",
@@ -38,11 +39,18 @@ export default function Address() {
         else {
 
             let tokens = localStorage.getItem("userToken");
-            await axios.patch("http://localhost:5000/address", address, { headers: { "token": tokens } });
+            let data = await axios.patch("http://localhost:5000/address", address, { headers: { "token": tokens } });
             // headers : to send data in header when send data to backend code, like header in postman 
             // in post method we need send 2 element "URL" and "new data"
             setIsloading(false); // came again to loading opration by default false because data has been
             setAdded(true)
+            if (data) {
+                setIsloading(false); // came again to loading opration by default false because data has been
+            }
+            else {
+                setError(data.message); // set new error message in error variable when fail Account
+                setIsloading(false); // came again to loading opration by default false because data has been
+            }
         }
     }
 
@@ -60,16 +68,17 @@ export default function Address() {
         // user = to validate on user data
     }
 
-
     return (
         <>
-
             <div className=' w-75 mx-auto pt-5'>
                 <h2 className=' mb-4'>Add your address</h2>
 
                 {errorList.map((error, i) => i === 4 ? <div className=' alert py-2 alert-danger'>password invalid</div> : <div className=' alert py-2 alert-danger'>{error.message}</div>)}
                 {/*this step to show error when false validate data*/}
                 {/*number "4" : change form message error to password because not show patern validate*/}
+
+                {error ? <div className=' alert alert-danger'>{error}</div> : ''}
+                {/*this step to if error in respons then show error in new dev */}
 
                 <form onSubmit={submitAddressForm}>
                     {/*onSubmit = onClick in button tage but we used this attribute because whin click enter in keybord*/}

@@ -16,8 +16,7 @@ import Others from './Others';
 import Address from './Address';
 import Pass from './Pass';
 
-
-import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import jwtDecode from 'jwt-decode'; // jwtDecode : to Transformation token to object Contain all data to user 
 import { useEffect, useState } from 'react';
 import CounterContextProvider from './Context/Store';
@@ -26,7 +25,6 @@ import CounterContextProvider from './Context/Store';
 function App() {
 
   const [userData, setUserData] = useState(null);
-  let navigate = useNavigate;
 
   function saveUserData() {
     let encodedToken = localStorage.getItem('userToken'); // get token to transformation token becaose get user data
@@ -37,7 +35,6 @@ function App() {
   function logOut() {
     setUserData(null);
     localStorage.removeItem('userToken');
-    navigate('/Login');
   }
 
   useEffect(() => {
@@ -50,9 +47,9 @@ function App() {
     if (localStorage.getItem('userToken') === null) {
       return <Navigate to='/Login' />
     }
-    else {
-      return props.children;
-    }
+    // else {
+    //   return props.children;
+    // }
   };
 
   const addItem = (data) => {
@@ -80,8 +77,8 @@ function App() {
       if (exist && data.qty >= 2) {
         let cart = product.map((elm) => elm.id === data.id ? { ...exist, qty: exist.qty - 1 } : elm)
         localStorage.setItem("products", JSON.stringify(cart))
-      } else if (data.qty < 2){
-        let cart = product.filter((elm)=>elm.id !== data.id)
+      } else if (data.qty < 2) {
+        let cart = product.filter((elm) => elm.id !== data.id)
         localStorage.setItem("products", JSON.stringify(cart))
       }
     }
@@ -95,17 +92,17 @@ function App() {
         <div className=" container">
           <Routes>
 
-            <Route path="" element={<ProtectedRoute><Home /></ProtectedRoute>} />
-            <Route path="home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
-            <Route path="cart" element={<ProtectedRoute><Cart addItem={addItem} deleteItem={deleteItem} /></ProtectedRoute>} />
+            <Route path="" element={<Home />} />
+            <Route path="home" element={<Home addItem={addItem} />} />
+            <Route path="cart" element={<Cart addItem={addItem} deleteItem={deleteItem} />} />
             <Route path="products" element={<ProtectedRoute><Products /></ProtectedRoute>} />
-            <Route path="electronics" element={<ProtectedRoute><Electronics addItem={addItem} /></ProtectedRoute>} />
-            <Route path="fashion" element={<ProtectedRoute><Fashion /></ProtectedRoute>} />
-            <Route path="shoes" element={<ProtectedRoute><Shoes /></ProtectedRoute>} />
-            <Route path="furniture" element={<ProtectedRoute><Furniture /></ProtectedRoute>} />
-            <Route path="skincare" element={<ProtectedRoute><Skincare /></ProtectedRoute>} />
-            <Route path="decoration" element={<ProtectedRoute><Decoration /></ProtectedRoute>} />
-            <Route path="others" element={<ProtectedRoute><Others /></ProtectedRoute>} />
+            <Route path="electronics" element={<Electronics addItem={addItem} />} />
+            <Route path="fashion" element={<Fashion addItem={addItem} />} />
+            <Route path="shoes" element={<Shoes addItem={addItem} />} />
+            <Route path="furniture" element={<Furniture addItem={addItem} />} />
+            <Route path="skincare" element={<Skincare addItem={addItem} />} />
+            <Route path="decoration" element={<Decoration addItem={addItem} />} />
+            <Route path="others" element={<Others addItem={addItem} />} />
             <Route path="address" element={<ProtectedRoute><Address /></ProtectedRoute>} />
             <Route path="pass" element={<ProtectedRoute><Pass /></ProtectedRoute>} />
             <Route path="register" element={<Register />} />

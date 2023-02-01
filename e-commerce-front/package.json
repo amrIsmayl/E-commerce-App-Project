@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^13.5.0",
     "add": "^2.0.6",
     "axios": "^1.2.1",
+    "bcryptjs-react": "^2.4.6",
     "bootstrap": "^5.2.3",
     "font-awesome": "^4.7.0",
     "joi": "^17.7.0",

@@ -2,34 +2,25 @@ import React, { useContext, useEffect, useState } from 'react'
 import { counterContext } from './Context/Store';
 
 export default function Cart(props) {
-
   const [products, setProducts] = useState([]);
+  let { incrementProduct, price, removeProduct } = useContext(counterContext)
 
-  function carts() {
+  async function carts() {
     let product = JSON.parse(localStorage.getItem('products'))
     setProducts(product)
   }
-
-  let { incrementProduct, price } = useContext(counterContext)
 
   useEffect(() => {
     carts();
   }, [price])
 
-  function removeProduct(data) {
-    let product = JSON.parse(localStorage.getItem("products"))
-    let cart = product.filter((elm) => elm.id !== data.id)
-    localStorage.setItem("products", JSON.stringify(cart))
-  }
-
-
   return (
     <>
-      {products ?
+      {products.length ?
         <div className=' row'>
           {products.map((data, i) =>
-            <div key={i} className=" col-md-4 my-3 pt-3  ">
-              <div className="card text-bg-dark rounded-4  " >
+            <div key={i} className=" col-md-4 my-3 pt-3 ">
+              <div className="card text-bg-dark rounded-4 " >
                 <div className=' scale_img'>
                   <img className=' w-100 height-img rounded-4 ' src={data.imageCover} alt="" />
                 </div>
@@ -63,18 +54,13 @@ export default function Cart(props) {
                       carts()
                     }}
                     className=' btn btn-danger px-3 ms-5'><i className="fa-sharp fa-solid fa-trash"></i></button>
-
                 </div>
-
               </div>
             </div>
           )}
-
         </div>
         :
-        <h1>hello</h1>}
-
-
+        <h1 className=' pt-5 mt-5'>There are no products in the cart</h1>}
     </>
   )
 }

@@ -10,11 +10,12 @@ export default function Navbar(props) {
     useEffect(() => {
         incrementProduct()
     })
+
     return (
         <>
-            <nav className="navbar navbar-expand-lg navbar-dark bg-transparent">
+            <nav className="navbar navbar-expand-lg navbar-dark pt-0 nav-color">
                 <div className="container-fluid pt-4">
-                    <Link className="navbar-brand ps-5" to="home">Club Wealth</Link>
+                    <Link className="navbar-brand ps-5" to="home">E-Commerce App</Link>
 
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
 
@@ -29,68 +30,46 @@ export default function Navbar(props) {
 
                             <Dropdown as={ButtonGroup}>
                                 <Dropdown.Toggle id="dropdown-custom-1" className='dropdown nav-link'>category</Dropdown.Toggle>
-                                <Dropdown.Menu className=" bg-dark ">
-                                    <Dropdown.Item eventKey="1" className="nav-link ">
-                                        <Link className="nav-link text-dropdown" aria-current="page" to="electronics">Electronics</Link>
-                                    </Dropdown.Item>
-                                    <Dropdown.Item eventKey="1" className="nav-link ">
-                                        <Link className="nav-link text-dropdown" aria-current="page" to="fashion">Fashion</Link>
-                                    </Dropdown.Item>
-                                    <Dropdown.Item eventKey="1" className="nav-link ">
-                                        <Link className="nav-link text-dropdown" aria-current="page" to="shoes">Shoes</Link>
-                                    </Dropdown.Item>
-                                    <Dropdown.Item eventKey="1" className="nav-link ">
-                                        <Link className="nav-link text-dropdown" aria-current="page" to="furniture">Furniture</Link>
-                                    </Dropdown.Item>
-                                    <Dropdown.Item eventKey="1" className="nav-link ">
-                                        <Link className="nav-link text-dropdown" aria-current="page" to="skincare">Skincare</Link>
-                                    </Dropdown.Item>
-                                    <Dropdown.Item eventKey="1" className="nav-link ">
-                                        <Link className="nav-link text-dropdown" aria-current="page" to="decoration">Home Decoration</Link>
-                                    </Dropdown.Item>
-                                    <Dropdown.Item eventKey="1" className="nav-link ">
-                                        <Link className="nav-link text-dropdown" aria-current="page" to="others">Others</Link>
-                                    </Dropdown.Item>
+                                <Dropdown.Menu className=" nav-color ">
+                                <Link className="nav-link text-dropdown" aria-current="page" to="electronics">Electronics</Link>
+                                <Link className="nav-link text-dropdown" aria-current="page" to="fashion">Fashion</Link>
+                                <Link className="nav-link text-dropdown" aria-current="page" to="shoes">Shoes</Link>
+                                <Link className="nav-link text-dropdown" aria-current="page" to="furniture">Furniture</Link>
+                                <Link className="nav-link text-dropdown" aria-current="page" to="skincare">Skincare</Link>
+                                <Link className="nav-link text-dropdown" aria-current="page" to="decoration">Home Decoration</Link>
+                                <Link className="nav-link text-dropdown" aria-current="page" to="others">Others</Link>
                                 </Dropdown.Menu>
                             </Dropdown>{' '}
-                            <Dropdown as={ButtonGroup}></Dropdown>
-
                         </ul>
 
                         <ul className="navbar-nav pe-5 mb-2 mb-lg-0">
 
-                            <li className="nav-item pe-3">
+                            {props.userData ?
+                                <li className="nav-item pe-3">
 
-                                <Dropdown as={ButtonGroup}>
-                                    <Dropdown.Toggle id="dropdown-custom-1" className='dropdown nav-link'>Account <i className="fa-solid fa-user"></i></Dropdown.Toggle>
-                                    <Dropdown.Menu className=" bg-dark ">
-                                        <Dropdown.Item eventKey="1" className="nav-link ">
+                                    <Dropdown as={ButtonGroup}>
+                                        <Dropdown.Toggle id="dropdown-custom-1" className='dropdown nav-link'>Account <i className="fa-solid fa-user"></i></Dropdown.Toggle>
+                                        <Dropdown.Menu className=" nav-color ">
                                             <Link className="nav-link text-dropdown" aria-current="page" to="pass">Change password</Link>
-                                        </Dropdown.Item>
-                                        <Dropdown.Item eventKey="1" className="nav-link ">
                                             <Link className="nav-link text-dropdown" aria-current="page" to="address">Address</Link>
-                                        </Dropdown.Item>
-                                    </Dropdown.Menu>
-                                </Dropdown>{' '}
-                                <Dropdown as={ButtonGroup}></Dropdown>
-
-                            </li>
+                                        </Dropdown.Menu>
+                                    </Dropdown>{' '}
+                                </li>
+                                : ""}
 
                             <li className="nav-item pe-3">
-
                                 <span className="nav-link ">$ {price}</span>
-
                             </li>
 
                             <li className="nav-item pe-5 position-relative text-light">
                                 <Link className="nav-link " aria-current="page" to="cart">Cart</Link>
-                                <i className="fa-solid fa-cart-shopping position-absolute cart-position"></i>
+                                <i className="fa-solid fa-cart-shopping position-absolute cart-position "></i>
                                 <span className='position-absolute number-position'>{count}</span>
                             </li>
 
                             {props.userData ?
                                 <li className="nav-item">
-                                    <span onClick={props.logOut} className="nav-link pe-5 pointer">Logout</span>
+                                    <Link onClick={props.logOut} className="nav-link pe-5">Logout</Link>
                                 </li>
                                 : <>
                                     <li className="nav-item">

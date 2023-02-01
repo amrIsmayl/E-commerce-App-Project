@@ -35,7 +35,7 @@ const schema = Schema({
     password: {
         type: String,
         required: [true, 'password required'],
-        minlength: [4, 'minlength 6 characters'],
+        minlength: [4, 'minlength 4 characters'],
     },
     passwordChangeAt: Date,
     profileImage: {
@@ -50,7 +50,7 @@ const schema = Schema({
         type: Boolean,
         default: true
     },
-    wishlist: [{ type: Types.ObjectId, ref: 'product' }], // "ref : "product" => because it show with product api
+    wishlist: { type: Object }, // "ref : "product" => because it show with product api
     addresses: [{
         name: String,
         street: String,

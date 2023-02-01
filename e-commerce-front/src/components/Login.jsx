@@ -1,26 +1,24 @@
 import axios from 'axios';
 import Joi from 'joi';
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { counterContext } from './Context/Store';
 // useNavigate : hook in react-router-dom to create navigation automatic
 // by aleb been el pages with automatic 
 // we using when registration success, Move to next page
 
-
 export default function Login(props) {
 
     const [errorList, setErrorList] = useState([]); // to any error in user data in register opration
-
     const [isloading, setIsloading] = useState(false); // to loading opration by default false
-
     const [error, setError] = useState(""); // set error variable to fail registration
-
-    let navigate = useNavigate(); // create variable to useNavigate because using after soon
-
     const [user, setUser] = useState({
         email: '',
         password: ''
     });
+    let { incrementProduct } = useContext(counterContext);
+
+    let navigate = useNavigate(); // create variable to useNavigate because using after soon
 
     function getUserData(e) { // e = by default all information in user data whin used function
         let myUser = { ...user }; // deep copy user 
@@ -47,17 +45,14 @@ export default function Login(props) {
             // in post method we need send 2 element "URL" and "new datq"
             if (data) {
                 setIsloading(false); // came again to loading opration by default false because data has been
-
                 localStorage.setItem('userToken', data.token); // when login is successful set user token in localStorage in variable userToken
-
                 props.saveUserData(); // this function in app.jsx , it transformation token to object all user data 
                 // props : to send data between components
-
+                incrementProduct()
                 navigate('/home') // the variable navigate giving name the next page 
             }
             else {
                 setError(data.message); // set new error message in error variable when fail register
-
                 setIsloading(false); // came again to loading opration by default false because data has been
             }
         }
@@ -73,7 +68,6 @@ export default function Login(props) {
         // in default "abortEarly: true" but we change it to "abortEarly: false"
         // user = to validate on user data
     }
-
 
     return (
         <>

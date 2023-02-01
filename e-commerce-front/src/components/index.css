@@ -1,25 +1,38 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital@1&display=swap');
 
 :root {
-  --bg-main: #131722;
+  --bg-main: #504205;
   --light-bg: #24baef;
   --main-color: #fff;
-  --border-color: #a8a8a83d;
+  --border-color: #cf79793d;
+  --nav-color: #292204;
+  --search-color: #181402;
 }
 
 body {
-  font-family: 'Montserrat Alternates', sans-serif !important;
+  font-family: 'Raleway', sans-serif !important;
   background-color: var(--bg-main);
   color: var(--main-color);
 }
 
-.height-img{
+.nav-color {
+  background-color: var(--nav-color);
+}
+
+.bg-carts {
+  background-color: var(--nav-color);
+}
+
+.bg-carts-search {
+  background-color: var(--search-color);
+}
+
+.height-img {
   height: 330px;
 }
 
-.scale_img :hover{
-  transform: scale(1.05) ;
+.scale_img :hover {
+  transform: scale(1.05);
   transition: .6s;
 }
 
@@ -27,29 +40,32 @@ body {
   height: 135px;
 }
 
-.carts_foter{
+.carts_foter {
   height: 50px;
 }
 
 .cart-position {
-  color: #909aa3;
+  color: #fff;
+  opacity: 55%;
   top: 0px;
   right: 35px;
 }
 
 .number-position {
-  color: #909aa3;
+  color: #fff;
+  opacity: 55%;
   padding: 1px;
   top: -4px;
-  right: 19px;
+  right: 10px;
 }
 
-.dropdown{
+.dropdown {
   background-color: transparent !important;
   border: none !important;
 }
 
-.text-dropdown:hover{
+.text-dropdown:hover {
   color: var(--bg-main) !important;
+  background-color: #fff !important;
   font-weight: 600 !important;
 }

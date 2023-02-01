@@ -11,10 +11,6 @@ export default function Register(props) {
     const [errorList, setErrorList] = useState([]); // to any error in user data in register opration
     const [isloading, setIsloading] = useState(false); // to loading opration by default false
     const [error, setError] = useState(""); // set error variable to fail registration
-
-
-    let navigate = useNavigate(); // create variable to useNavigate because using after soon
-
     const [user, setUser] = useState({
         name: '',
         lastName: '',
@@ -23,6 +19,7 @@ export default function Register(props) {
         phone: '',
         password: ''
     });
+    let navigate = useNavigate(); // create variable to useNavigate because using after soon
 
     function getUserData(e) { // e = by default all information in user data whin used function
         let myUser = { ...user }; // deep copy user 
@@ -31,39 +28,26 @@ export default function Register(props) {
     }
 
     async function submitRegisterForm(e) { // e = in here because control to behavior>"solok" form tage
-
         e.preventDefault(); // preventDefault = this function to stop default reload action to form tage
-
         setIsloading(true); // to loading opration = do it true because is loading now to reception data from database
-
         let validationResult = validateRegisterForm(); // to validate registration data
-
         if (validationResult.error) {
-
             setErrorList(validationResult.error.details); // if error message set error in error variable
-
             setIsloading(false); // came again to loading opration by default false because data has been
         }
         else {
-            let   data   = await axios.post('http://localhost:5000/user/signup', user );
+            let data = await axios.post('http://localhost:5000/user/signup', user);
             console.log(data);
             // in post method we need send 2 element "URL" and "new datq"
-
             if (data) {
-                setIsloading(false); // came again to loading opration by default false because data has been
-        
-                localStorage.setItem('userToken', data.token); // when login is successful set user token in localStorage in variable userToken
-        
-                props.saveUserData(); // this function in app.jsx , it transformation token to object all user data 
+                setIsloading(false); // came again to loading opration by default false because data has been        
                 // props : to send data between components
-        
-                navigate('/home') // the variable navigate giving name the next page 
-              }
-              else {
+                navigate('/login') // the variable navigate giving name the next page 
+            }
+            else {
                 setError(data.message); // set new error message in error variable when fail register
-        
                 setIsloading(false); // came again to loading opration by default false because data has been
-              }
+            }
         }
     }
 
@@ -76,13 +60,11 @@ export default function Register(props) {
             phone: Joi.string().required(),
             password: Joi.string().required(),
         })
-
         return scheme.validate(user, { abortEarly: false });
         // abortEarly = to show all error messages in error variable
         // in default "abortEarly: true" but we change it to "abortEarly: false"
         // user = to validate on user data
     }
-
 
     return (
         <>
@@ -117,11 +99,14 @@ export default function Register(props) {
                     <label htmlFor="password" className=' my-2'>password :</label>
                     <input onChange={getUserData} type='password' className=' form-control mb-2' id='password' name='password' />
 
-                    <button type='supmit' className=' btn btn-outline-info mt-4'>
-                        {isloading ? <i className=' fas fa-spinner fa-spin'></i> : "Register"}
-                        {/*create spinner to wait loading opration but if not loading opration show "Register" */}
-                    </button>
 
+                    <div className=' d-flex justify-content-between mt-4'>
+                        <button type='supmit' className=' btn btn-outline-info mt-4'>
+                            {isloading ? <i className=' fas fa-spinner fa-spin'></i> : "Register"}
+                            {/*create spinner to wait loading opration but if not loading opration show "Register" */}
+                        </button>
+                        
+                    </div>
 
                 </form>
 
